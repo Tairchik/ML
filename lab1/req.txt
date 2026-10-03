@@ -23,3 +23,8 @@ statsmodels==0.15.0
 threadpoolctl==3.7.0
 typing_extensions==4.16.0
 wrapt==2.5.0
+ipykernel==7.4.0
+jupyterlab==4.6.4
+nbclient==0.11.0
+nbconvert==7.17.1
+nbformat==5.11.1
