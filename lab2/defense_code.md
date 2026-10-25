@@ -1,8 +1,10 @@
 # Ответы по коду лабораторной работы 2
 
-Материал относится к упрощённому [lab2_classification.py](lab2_classification.py) и [ноутбуку](lab2_classification.ipynb). Нумерация совпадает с первым блоком вопросов из задания. Дополнительные проверки можно выполнить в отдельной ячейке после обучения; они не обязательно уже напечатаны в основном листинге.
+Ответы сверены с текущими [lab2_classification.py](lab2_classification.py), [ноутбуком](lab2_classification.ipynb) и сохранёнными результатами в `results`. Нумерация совпадает с первым блоком из 36 вопросов к защите. Фрагменты из основного листинга показывают, где выполняется операция; дополнительные примеры для демонстрации отмечены отдельно.
 
 Положительный класс – **Cammeo (1)**, отрицательный – **Osmancik (0)**. Обучение: 2286 объектов, validation: 762, test: 762. Все итоговые модели обучены на одном train, без последующего объединения с validation.
+
+В таблицах используется имя `ROC-AUC`, на сравнительном графике – `AUC-ROC`: это один показатель. Для установки основных библиотек служит `req.txt`, а `requirements-lock.txt` содержит полный список пакетов окружения с версиями. Обученные модели сохраняются локально в `results/models/`; этот каталог исключён из Git. Для примеров с `best_models` и `best_network` нужно предварительно выполнить обучение в ноутбуке.
 
 | Кодовая ячейка | Блок в `.py` | Назначение |
 | ---: | :--- | :--- |
@@ -15,6 +17,8 @@
 | 8–9 | `tune`, `parameter_plots` | Подбор и его анализ |
 | 10–12 | `neural_setup`, `neural_train`, `learning_plots` | Нейросетевые эксперименты |
 | 13–16 | `selection`, `test`, `comparison_plots`, `confusion` | Выбор и итоговое сравнение |
+
+Здесь указаны порядковые номера **кодовых** ячеек. Markdown-ячейки при подсчёте не учитываются. В `.py` нужный блок можно найти по комментарию `# %% имя_блока`.
 
 ## 1. Где загружается датасет? Как проверить размер, названия признаков и типы данных?
 
@@ -342,6 +346,22 @@ for ax, (name, prediction) in zip(axes.flat, test_predictions.items()):
 
 Например, **32** в верхней правой ячейке – зёрна Osmancik, ошибочно отнесённые к Cammeo. При положительном Cammeo это FP. Число 25 – FN, то есть пропущенные Cammeo.
 
+Результаты всех панелей [общего рисунка](results/plots/08_confusion.png):
+
+| Модель | TN | FP | FN | TP | Всего ошибок |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| GaussianNB | 403 | 33 | 42 | 284 | 75 |
+| MultinomialNB | 403 | 33 | 46 | 280 | 79 |
+| ComplementNB | 402 | 34 | 43 | 283 | 77 |
+| BernoulliNB | 391 | 45 | 33 | 293 | 78 |
+| Decision Tree | 401 | 35 | 29 | 297 | 64 |
+| LDA | 416 | 20 | 28 | 298 | 48 |
+| SVM | 404 | 32 | 25 | 301 | 57 |
+| kNN | 402 | 34 | 31 | 295 | 65 |
+| TensorFlow MLP | 400 | 36 | 29 | 297 | 65 |
+
+Всего ошибок = FP + FN. У LDA меньше ошибок в целом, у SVM меньше пропущенных Cammeo. Для каждой модели TN+FP=436, FN+TP=326: это одинаковые количества истинных классов в test. `values_format='d'` выводит целые количества; нормализация в доли не применяется. Общая шкала цвета идёт от 0 до 436, а `colorbar=False` убирает отдельные цветовые шкалы у панелей. Рисунок сохраняется в `08_confusion.png`.
+
 ## 20. Где считается ROC-AUC? Какие значения передаются?
 
 ```python
@@ -354,7 +374,7 @@ roc_auc_score(y_true, scores)
 
 ## 21. Как получены оценки для ROC каждого классификатора? Что у SVM?
 
-В блоках `tune` и `test`:
+В блоке `test`:
 
 ```python
 if name == 'SVM':
@@ -372,6 +392,8 @@ scores = best_network.predict(X_test_scaled, verbose=0).ravel()
 ```
 
 Sigmoid даёт значения от 0 до 1. `roc_curve(y_test, scores)` по этим оценкам строит FPR и TPR.
+
+В блоке `tune` используется тот же принцип, но оценки получают для `X_val` и сравнивают с `y_val`. В `comparison_plots` в легенду каждой тестовой ROC-кривой добавляется значение AUC-ROC; результат сохраняется в `06_roc.png`.
 
 ## 22. Где объединяются результаты? Как проверить одинаковый test?
 
@@ -395,9 +417,20 @@ test_table.to_csv(RESULTS / 'test_metrics.csv', index=False)
 | kNN | 0,91470 | 0,89666 | 0,90491 | 0,90076 | 0,97380 |
 | TensorFlow MLP | 0,91470 | 0,89189 | 0,91104 | 0,90137 | 0,97597 |
 
-Во всём цикле используются одни `X_test` и `y_test`; для нейросети преобразуются те же строки. Индексы сохранены в `split_assignment.csv`, а `test_predictions.csv` содержит `row_id`, истинные метки и прогнозы всех моделей. Проверить можно скриптом `verify_results.py`.
+В блоке `comparison_plots` по этой таблице строится [общая столбчатая диаграмма](results/plots/07_metrics.png):
 
-По validation выбран SVM. LDA имеет лучший наблюдаемый тестовый AUC и Accuracy, но это не повод менять правило выбора задним числом.
+```python
+comparison = test_table.set_index('Модель')[['Accuracy', 'Precision', 'Recall', 'F1', 'ROC-AUC']]
+comparison = comparison.rename(columns={'F1': 'F1-Score', 'ROC-AUC': 'AUC-ROC'})
+ax = comparison.plot(kind='bar', figsize=(15, 6), width=0.82,
+                     color=['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple'])
+```
+
+На оси X расположены девять моделей. В каждой группе пять столбцов: синий – Accuracy, оранжевый – Precision, зелёный – Recall, красный – F1-Score, фиолетовый – AUC-ROC. По оси Y показано значение метрики; шкала начинается с нуля. `rename` меняет подписи графика, сами показатели и столбцы исходной таблицы остаются прежними. Рисунок сохраняется в `07_metrics.png`.
+
+Во всём цикле используются одни `X_test` и `y_test`; для нейросети преобразуются те же строки. Индексы сохранены в `split_assignment.csv`, а `test_predictions.csv` содержит `row_id`, истинные метки и прогнозы всех моделей. Скрипт `verify_results.py` повторно рассчитывает метрики по этим прогнозам; для проверки сохранённых моделей их файлы должны присутствовать локально.
+
+На test у LDA наибольшие Accuracy, Precision, F1 и AUC-ROC, у SVM – наибольший Recall. По validation выбран **SVM**: AUC=**0,980688**, у LDA AUC=**0,980512**. Выбор зафиксирован до оценки на test. Наблюдаемые тестовые результаты служат сравнению, а параметры и выбранный подход по ним заново не меняются.
 
 ## 23. Какие пространства гиперпараметров исследованы?
 
@@ -459,20 +492,77 @@ scores = best_models['SVM'].decision_function(X_test)
 
 Дополнительное обучение по test не выполняется.
 
+Выбранные параметры всех классических моделей записаны в [classical_tuning.csv](results/classical_tuning.csv):
+
+| Модель | Лучшие параметры | Средний CV AUC |
+| :--- | :--- | ---: |
+| GaussianNB | `var_smoothing=0.0001` | 0,974746 |
+| MultinomialNB | `n_bins=8`, `alpha=1` | 0,973840 |
+| ComplementNB | `n_bins=8`, `alpha=1` | 0,973840 |
+| BernoulliNB | `threshold=0`, `alpha=0.01` | 0,957994 |
+| Decision Tree | `criterion='entropy'`, `max_depth=3`, `min_samples_leaf=15` | 0,974977 |
+| LDA | `solver='svd'`, `tol=0.0001` | 0,979651 |
+| SVM | `kernel='linear'`, `C=100` | 0,979522 |
+| kNN | `n_neighbors=41`, `weights='uniform'`, `p=2` | 0,976830 |
+
+Эта таблица сравнивает средние оценки классических методов внутри CV. Общий выбор среди классических моделей и нейросети выполняется позднее по отдельной validation, поэтому лучший CV AUC у LDA не противоречит выбору SVM по validation.
+
 ## 27. Как формируется график влияния параметра?
 
-В `parameter_plots` для текущего параметра:
+Блок `parameter_plots` строит **восемь графиков в сетке 2×4** – по одному для каждой классической модели. На них показан лучший средний CV AUC при каждом проверенном значении выбранного параметра.
 
 ```python
-values = [str(params.get(parameter, '–')) for params in search.cv_results_['params']]
-table = pd.DataFrame({'Значение': values, 'AUC': search.cv_results_['mean_test_score']})
-curve = table.groupby('Значение', sort=False)['AUC'].max()
-curve.plot(marker='o', ax=ax)
+parameters = ['model__var_smoothing', 'model__alpha', 'model__alpha', 'model__alpha',
+              'model__max_depth', 'model__shrinkage', 'model__C', 'model__n_neighbors']
+fig, axes = plt.subplots(2, 4, figsize=(17, 8))
+for ax, (name, search), parameter in zip(axes.flat, searches.items(), parameters):
+    values = [str(params.get(parameter, '–')) for params in search.cv_results_['params']]
+    table = pd.DataFrame({'Значение': values, 'AUC': search.cv_results_['mean_test_score']})
+    curve = table.groupby('Значение', sort=False)['AUC'].max()
+    curve.plot(marker='o', ax=ax)
+    ax.set_title(name)
+    ax.set_xlabel(parameter.replace('model__', ''))
+    ax.set_ylabel('Лучший CV AUC в сетке')
+    ax.tick_params(axis='x', rotation=40)
+plt.tight_layout()
+plt.savefig(PLOTS / '03_parameter_effects.png')
+plt.show()
 ```
 
-`cv_results_` содержит настройки и оценки всех сочетаний. Строки группируются по значению одного параметра, затем берётся **максимальный AUC по остальным настройкам**.
+Модели и параметры сопоставляются по порядку элементов в `searches` и списке `parameters`:
 
-Поэтому график показывает лучший результат сетки при данном значении, а не изолированный причинный эффект единственного параметра. Например, улучшение дерева связано с ограничением глубины, но конкретная точка может также использовать другой критерий и размер листа. Для строгого исследования одного фактора остальные настройки надо зафиксировать.
+| Модель | Параметр на оси X | Что он регулирует |
+| :--- | :--- | :--- |
+| GaussianNB | `var_smoothing` | Стабилизацию дисперсий |
+| MultinomialNB | `alpha` | Сглаживание счётчиков |
+| ComplementNB | `alpha` | Сглаживание счётчиков |
+| BernoulliNB | `alpha` | Сглаживание вероятностей бинарных признаков |
+| Decision Tree | `max_depth` | Максимальную глубину дерева |
+| LDA | `shrinkage` | Регуляризацию оценки ковариации |
+| SVM | `C` | Штраф за нарушения разделения |
+| kNN | `n_neighbors` | Число соседей |
+
+Как работают строки цикла:
+
+1. `axes.flat` перебирает восемь областей рисунка. `zip` связывает каждую область, модель и параметр.
+2. `cv_results_['params']` содержит настройки всех проверенных сочетаний. Из каждого словаря извлекается выбранный параметр, а `str` превращает его значение в подпись оси X.
+3. `mean_test_score` содержит **средний AUC по пяти проверочным фолдам CV**. Слово `test` здесь относится к проверочной части фолда, а не к независимому `X_test` из лабораторной.
+4. `groupby('Значение')['AUC'].max()` объединяет строки с одинаковым значением параметра и выбирает лучший средний AUC среди остальных сочетаний настроек.
+5. `plot(marker='o')` соединяет точки линией, а `savefig` сохраняет [03_parameter_effects.png](results/plots/03_parameter_effects.png).
+
+**Пример для дерева:** при глубине 3 сравниваются все сочетания `criterion` и `min_samples_leaf`; на график попадает только лучший результат этой группы.
+
+| Максимальная глубина | Лучший средний CV AUC |
+| :--- | ---: |
+| 2 | 0,966744 |
+| 3 | 0,974977 |
+| 5 | 0,969454 |
+| 8 | 0,962253 |
+| None, без ограничения | 0,960470 |
+
+Лучший результат среди проверенных сочетаний получен при глубине 3. Рост глубины здесь не улучшил CV AUC. В точках с разной глубиной могли одновременно отличаться критерий и минимальный размер листа. Аналогично у SVM при разных C лучшими могут оказаться разные ядра и gamma. Для изучения влияния одного параметра при фиксированных остальных настройках нужен отдельный перебор с этими ограничениями.
+
+**Подпись `–`** означает, что параметра нет в словаре конкретного сочетания. Например, у LDA с `solver='svd'` параметр `shrinkage` в сетке не задан. Подпись `None` означает другое: параметр присутствует и явно имеет значение `None`. Из-за `str` ось X категориальная, расстояния между подписями не отражают числовую разницу. `sort=False` сохраняет порядок первого появления значений в результатах поиска.
 
 ## 28. Где создаётся нейросеть? Как используется Sequential?
 
@@ -570,6 +660,8 @@ history = network.fit(
 
 `history` – объект History. Словарь `history.history` содержит **loss, accuracy, val_loss, val_accuracy**. Он сохраняется в `histories[name]` и CSV каждого запуска в `results/neural_histories`. Каждая конфигурация проходит заданное число эпох полностью; EarlyStopping нет.
 
+В следующем блоке `learning_plots` строка `history = histories[best_run]` присваивает тому же имени уже словарь выбранного запуска. По нему строятся две кривые loss и две кривые accuracy в `04_learning_curves.png`. Отдельная диаграмма `05_neural_experiments.png` сравнивает validation AUC всех 11 конфигураций.
+
 ## 34. Где прогнозы нейросети на test? Как они превращаются в метки?
 
 В блоке `test`:
@@ -618,7 +710,13 @@ for name, layers, activation, epochs, batch in experiments:
 
 ## 36. Как настроен TensorBoard? Как открыть два запуска и объяснить кривые?
 
-Каталог LOGS создаётся в начале программы. Внутри цикла каждому эксперименту назначен подкаталог:
+Путь LOGS задаётся в начале программы. Дата и время в имени отделяют повторные полные запуски:
+
+```python
+LOGS = BASE / 'logs/tensorboard' / datetime.now().strftime('%Y%m%d-%H%M%S')
+```
+
+Внутри цикла каждой конфигурации назначается свой подкаталог:
 
 ```python
 tensorboard = tf.keras.callbacks.TensorBoard(
@@ -626,6 +724,8 @@ tensorboard = tf.keras.callbacks.TensorBoard(
 )
 # В network.fit передаётся callbacks=[tensorboard].
 ```
+
+Callback записывает показатели обучения и валидации после эпох. `profile_batch=0` отключает профилирование батчей, запись метрик продолжается. **Веб-интерфейс TensorBoard запускается отдельно**; создание callback само по себе его не открывает.
 
 Из корня проекта:
 
@@ -639,9 +739,16 @@ lab2/.venv/bin/tensorboard --logdir lab2/logs/tensorboard --port 6006
 .\lab2\.venv\Scripts\tensorboard.exe --logdir lab2/logs/tensorboard --port 6006
 ```
 
-Откройте **http://localhost:6006**, выберите группу из `results/run_info.json` – для сохранённого расчёта `20261025-165807`. Сравните `epochs10/train`, `epochs10/validation`, `epochs80/train`, `epochs80/validation`. Для сравнения с CSV установите сглаживание в 0.
+Откройте **http://localhost:6006**. Актуальная группа записана в `tensorboard_dir` файла [results/run_info.json](results/run_info.json). После каждого полного запуска путь меняется, поэтому выбирать группу по старой дате нельзя. Дополнительная проверка пути в ячейке ноутбука:
 
-Теги `epoch_loss` и `epoch_accuracy` показаны отдельно для train и validation: это четыре нужные кривые. Числа последней эпохи:
+```python
+info = json.loads((RESULTS / 'run_info.json').read_text(encoding='utf-8'))
+print(BASE / info['tensorboard_dir'])
+```
+
+В Time Series / Scalars выберите `epochs10/train`, `epochs10/validation`, `epochs80/train`, `epochs80/validation` **внутри актуальной группы**. Для сравнения с CSV установите сглаживание в 0.
+
+Теги `epoch_loss` и `epoch_accuracy` показаны отдельно для train и validation: это четыре нужные кривые. В CSV истории им соответствуют столбцы `loss`, `accuracy`, `val_loss`, `val_accuracy`. Числа последней эпохи:
 
 | Запуск | Train loss | Val loss | Train accuracy | Val accuracy | Validation AUC |
 | :--- | ---: | ---: | ---: | ---: | ---: |
@@ -652,4 +759,4 @@ lab2/.venv/bin/tensorboard --logdir lab2/logs/tensorboard --port 6006
 
 Val accuracy может быть выше train accuracy без утечки: выборки различаются, а обучающая метрика усредняется по батчам, пока веса меняются; валидация оценивается после эпохи. Сведения о событиях и команды позволяют выполнить демонстрацию на защите; отдельный запуск веб-интерфейса не является частью основного расчётного скрипта.
 
-Основа ответов – текущий листинг, сохранённые модели и таблицы `results`. Стандартный способ работы callback описан в [документации TensorBoard](https://www.tensorflow.org/tensorboard/get_started).
+Для просмотра уже записанных событий повторное обучение не требуется: достаточно сохранить [каталог логов](logs/tensorboard). Стандартный способ работы callback описан в [документации TensorBoard](https://www.tensorflow.org/tensorboard/get_started).
