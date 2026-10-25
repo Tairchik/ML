@@ -1,5 +1,14 @@
 # Лабораторные работы по машинному обучению
 
+## Лабораторная № 2: классификация и нейронные сети
+
+- [Отчёт с выполненными ячейками и графиками](lab2/lab2_classification.ipynb).
+- [Полный листинг](lab2/lab2_classification.py), [зависимости](lab2/req.txt).
+- [Запуск, методика сравнения и TensorBoard](lab2/README.md).
+- [Итоговые метрики](lab2/results/test_metrics.csv) и [нейросетевые эксперименты](lab2/results/neural_experiments.csv).
+
+Датасет: [Rice (Cammeo and Osmancik), UCI](https://archive.ics.uci.edu/dataset/545/rice%2Bcammeo%2Band%2Bosmancik). Сравниваются четыре варианта наивного Байеса, дерево решений, LDA, SVM, kNN и нейросеть TensorFlow. Параметры выбираются без тестовой выборки, настоящие логи TensorBoard сохранены в `lab2/logs/tensorboard`.
+
 ## Лабораторная № 1: регрессия и PCA
 
 - [Отчет с выполненными ячейками и графиками](lab1/lab1_regression.ipynb).

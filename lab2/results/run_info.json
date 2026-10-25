@@ -1,0 +1,10 @@
+{
+  "seed": 42,
+  "train_size": 2286,
+  "validation_size": 762,
+  "test_size": 762,
+  "best_method": "SVM",
+  "best_nn_run": "epochs10",
+  "tensorboard_dir": "logs/tensorboard/20261025-183428",
+  "nn_experiments": 11
+}
