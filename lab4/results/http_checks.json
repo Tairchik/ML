@@ -1,0 +1,115 @@
+{
+  "release": "v2",
+  "model_version": "2",
+  "pipeline_sha256": "c4c5c73d8343999dde42addb99cb0650bbf78be256687014a6f0ea223f4a3d08",
+  "status": "passed",
+  "parity_rows": 1037,
+  "max_probability_difference": 0.0,
+  "invalid_requests": [
+    {
+      "case": "missing_texts",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "empty_batch",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "empty_sms",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "blank_sms",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "number",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "boolean",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "null_sms",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "mixed_types",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "string_instead_of_batch",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "null_batch",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "wrong_top_level",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "extra_field",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "oversized_batch",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "oversized_sms",
+      "expected_status": 422,
+      "actual_status": 422
+    },
+    {
+      "case": "malformed_json",
+      "expected_status": 422,
+      "actual_status": 422
+    }
+  ],
+  "example_request": {
+    "texts": [
+      "And how you will do that, princess? :)",
+      "cmon babe, make me horny, *turn* me on! Txt me your fantasy now babe -) Im hot, sticky and need you now. All replies cost £1.50. 2 cancel send STOP",
+      "\"For the most sparkling shopping breaks from 45 per person; call 0121 2025050 or visit www.shortbreaks.org.uk\""
+    ]
+  },
+  "example_response": {
+    "predictions": [
+      "ham",
+      "ham",
+      "ham"
+    ],
+    "probabilities_spam": [
+      0.0010209079134395204,
+      0.1632287445930936,
+      0.4945835957774673
+    ],
+    "model_version": "2",
+    "release": "v2",
+    "run_id": "4f7499ea175841c5a006088d92de6714",
+    "latency_ms": 3.874644999996235
+  },
+  "latency": {
+    "requests": 10,
+    "batch_size": 3,
+    "roundtrip_median_ms": 2.84888799978944,
+    "roundtrip_p95_ms": 3.2858173004115088,
+    "handler_median_ms": 0.9519014997749764
+  }
+}

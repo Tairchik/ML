@@ -1,0 +1,175 @@
+{
+  "created_at": "2026-11-10T11:57:50.109528+00:00",
+  "experiment_id": "1",
+  "dataset": {
+    "source": "https://archive.ics.uci.edu/dataset/228/sms+spam+collection",
+    "download_url": "https://archive.ics.uci.edu/static/public/228/sms+spam+collection.zip",
+    "license": "CC BY 4.0",
+    "raw_sha256": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d",
+    "raw_rows": 5574,
+    "clean_rows": 5159,
+    "excluded_rows": 415,
+    "conflicting_hashes": 0,
+    "raw_classes": {
+      "ham": 4827,
+      "spam": 747
+    },
+    "clean_classes": {
+      "ham": 4517,
+      "spam": 642
+    },
+    "split_sha256": "c7c7f9c6bd2b5ab276809d4b7b134446449498cda7385b9e78e99e8fea279c5b",
+    "splits": {
+      "train": {
+        "rows": 3095,
+        "ham": 2710,
+        "spam": 385
+      },
+      "validation": {
+        "rows": 1032,
+        "ham": 903,
+        "spam": 129
+      },
+      "test": {
+        "rows": 1032,
+        "ham": 904,
+        "spam": 128
+      }
+    }
+  },
+  "selection_rule": "max val_f1_spam; ties: max val_precision_spam, then config order",
+  "champion": {
+    "config_id": "nb_alpha_0.1",
+    "algorithm": "MultinomialNB",
+    "parameter": "alpha",
+    "value": 0.1,
+    "run_id": "4f7499ea175841c5a006088d92de6714",
+    "model_uri": "runs:/4f7499ea175841c5a006088d92de6714/model",
+    "order": 0,
+    "val_f1_spam": 0.9262295081967213,
+    "val_precision_spam": 0.9826086956521739,
+    "val_recall_spam": 0.875968992248062,
+    "val_accuracy": 0.9825581395348837,
+    "fit_seconds": 0.09933893499987789,
+    "vocabulary_size": 20000
+  },
+  "alternative": {
+    "config_id": "lr_C_10",
+    "algorithm": "LogisticRegression",
+    "parameter": "C",
+    "value": 10.0,
+    "run_id": "cd9cab5f394d490a9600eea8e5c0dfd2",
+    "model_uri": "runs:/cd9cab5f394d490a9600eea8e5c0dfd2/model",
+    "order": 5,
+    "val_f1_spam": 0.921161825726141,
+    "val_precision_spam": 0.9910714285714286,
+    "val_recall_spam": 0.8604651162790697,
+    "val_accuracy": 0.9815891472868217,
+    "fit_seconds": 0.563559696999846,
+    "vocabulary_size": 20000
+  },
+  "releases": {
+    "v1": {
+      "model_name": "sms-spam-filter",
+      "model_version": "1",
+      "release": "v1",
+      "run_id": "cd9cab5f394d490a9600eea8e5c0dfd2",
+      "model_uri": "models:/sms-spam-filter/1",
+      "pipeline_sha256": "05026fb8bbed4155e1b3ba8d1ab998765194d9f44fde168625a0adf7e0575c9a",
+      "raw_sha256": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d",
+      "split_sha256": "c7c7f9c6bd2b5ab276809d4b7b134446449498cda7385b9e78e99e8fea279c5b",
+      "classes": {
+        "0": "ham",
+        "1": "spam"
+      },
+      "input": {
+        "texts": "1..100 nonblank strings; each <=5000 characters"
+      },
+      "threshold": 0.5,
+      "python": "3.12.3",
+      "scikit_learn": "1.6.1",
+      "algorithm": "LogisticRegression",
+      "exported_at": "2026-11-10T11:57:48.867810+00:00"
+    },
+    "v2": {
+      "model_name": "sms-spam-filter",
+      "model_version": "2",
+      "release": "v2",
+      "run_id": "4f7499ea175841c5a006088d92de6714",
+      "model_uri": "models:/sms-spam-filter/2",
+      "pipeline_sha256": "c4c5c73d8343999dde42addb99cb0650bbf78be256687014a6f0ea223f4a3d08",
+      "raw_sha256": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d",
+      "split_sha256": "c7c7f9c6bd2b5ab276809d4b7b134446449498cda7385b9e78e99e8fea279c5b",
+      "classes": {
+        "0": "ham",
+        "1": "spam"
+      },
+      "input": {
+        "texts": "1..100 nonblank strings; each <=5000 characters"
+      },
+      "threshold": 0.5,
+      "python": "3.12.3",
+      "scikit_learn": "1.6.1",
+      "algorithm": "MultinomialNB",
+      "exported_at": "2026-11-10T11:57:49.209954+00:00"
+    }
+  },
+  "test": {
+    "test_f1_spam": 0.9256198347107438,
+    "test_precision_spam": 0.9824561403508771,
+    "test_recall_spam": 0.875,
+    "test_accuracy": 0.9825581395348837,
+    "confusion_matrix": [
+      [
+        902,
+        2
+      ],
+      [
+        16,
+        112
+      ]
+    ],
+    "classification_report": {
+      "ham": {
+        "precision": 0.9825708061002179,
+        "recall": 0.9977876106194691,
+        "f1-score": 0.9901207464324918,
+        "support": 904.0
+      },
+      "spam": {
+        "precision": 0.9824561403508771,
+        "recall": 0.875,
+        "f1-score": 0.9256198347107438,
+        "support": 128.0
+      },
+      "accuracy": 0.9825581395348837,
+      "macro avg": {
+        "precision": 0.9825134732255475,
+        "recall": 0.9363938053097345,
+        "f1-score": 0.9578702905716179,
+        "support": 1032.0
+      },
+      "weighted avg": {
+        "precision": 0.9825565839917725,
+        "recall": 0.9825581395348837,
+        "f1-score": 0.9821206333507246,
+        "support": 1032.0
+      }
+    },
+    "rows": 1032,
+    "run_id": "4f7499ea175841c5a006088d92de6714",
+    "model_version": "2"
+  },
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "packages": {
+      "mlflow": "2.22.2",
+      "scikit-learn": "1.6.1",
+      "numpy": "2.2.6",
+      "pandas": "2.2.3",
+      "fastapi": "0.115.12",
+      "pydantic": "2.11.5"
+    }
+  }
+}

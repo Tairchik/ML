@@ -1,0 +1,17 @@
+# Python 3.12; requirements.txt includes the resolved transitive dependencies.
+mlflow==2.22.2
+sqlalchemy==2.0.44
+scikit-learn==1.6.1
+numpy==2.2.6
+pandas==2.2.3
+scipy==1.15.3
+fastapi==0.115.12
+uvicorn==0.34.2
+pydantic==2.11.5
+httpx==0.28.1
+matplotlib==3.10.3
+nbconvert==7.16.6
+nbformat==5.10.4
+ipykernel==6.29.5
+pytest==8.3.5
+pypdf==5.5.0

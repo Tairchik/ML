@@ -1,0 +1,20 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+.runtime/
+*.db-shm
+*.db-wal
+*.db-journal
+*.pid
+
+# Accidental default MLflow stores; the laboratory uses mlflow-data/.
+/mlruns/
+/mlartifacts/
+
+# Office / LibreOffice lock files
+~$*
+.~lock.*#
+
+# data/, models/, mlflow-data/, results/ and reports are laboratory artifacts.
+# Keep these files available for version control and reproducibility.

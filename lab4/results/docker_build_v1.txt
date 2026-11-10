@@ -1,0 +1,48 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 804B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12.10-slim-bookworm@sha256:fd95fa221297a88e1cf49c55ec1828edd7c5a428187e67b5d1805692d11588db
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 277B done
+#3 DONE 0.0s
+
+#4 [1/7] FROM docker.io/library/python:3.12.10-slim-bookworm@sha256:fd95fa221297a88e1cf49c55ec1828edd7c5a428187e67b5d1805692d11588db
+#4 resolve docker.io/library/python:3.12.10-slim-bookworm@sha256:fd95fa221297a88e1cf49c55ec1828edd7c5a428187e67b5d1805692d11588db 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 313.67kB 0.0s done
+#5 DONE 0.0s
+
+#6 [2/7] WORKDIR /app
+#6 CACHED
+
+#7 [3/7] COPY requirements-runtime.txt .
+#7 CACHED
+
+#8 [4/7] RUN python -m pip install --no-cache-dir -r requirements-runtime.txt
+#8 CACHED
+
+#9 [5/7] COPY sms_mlops/__init__.py sms_mlops/service.py ./sms_mlops/
+#9 CACHED
+
+#10 [6/7] COPY models/v1/ ./model/
+#10 CACHED
+
+#11 [7/7] RUN useradd --uid 10001 --create-home appuser
+#11 CACHED
+
+#12 exporting to image
+#12 exporting layers done
+#12 exporting manifest sha256:9883ce6b456a7497066bb69b39958288fac130a4d6508ba9ec108efcf6225d6b done
+#12 exporting config sha256:8d70ce5f11be38b3bea710afacfa387a80c248f7280f2321a911b61f548c7a98 done
+#12 exporting attestation manifest sha256:9ee9c890a76592bb407ecef186e1694f732d03d776b3a9c294de5f99cdf0a982 0.0s done
+#12 exporting manifest list sha256:6d7ceff1a14600064d4fb0c803f8cb946acbb80688eaf8ae2a25104d954f7d4e 0.0s done
+#12 naming to docker.io/library/sms-spam:v1 done
+#12 unpacking to docker.io/library/sms-spam:v1 0.0s done
+#12 DONE 0.1s

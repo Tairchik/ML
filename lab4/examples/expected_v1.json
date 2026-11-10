@@ -1,0 +1,13 @@
+{
+  "predictions": [
+    "ham",
+    "ham",
+    "spam"
+  ],
+  "probabilities_spam": [
+    0.006182487177051617,
+    0.4767839621766742,
+    0.9178038431522817
+  ],
+  "model_version": "1"
+}

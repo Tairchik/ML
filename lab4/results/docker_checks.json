@@ -1,0 +1,771 @@
+{
+  "status": "passed",
+  "created_at": "2026-11-10T12:13:17.847343+00:00",
+  "commands": [
+    {
+      "argv": [
+        "docker",
+        "version"
+      ],
+      "returncode": 0,
+      "seconds": 0.04299788099979196,
+      "stdout": "Client:\n Version:           29.4.3\n API version:       1.54\n Go version:        go1.26.2\n Git commit:        055a478\n Built:             Wed May  6 17:06:42 2026\n OS/Arch:           linux/amd64\n Context:           default\n\nServer: Docker Desktop 4.74.0 (227015)\n Engine:\n  Version:          29.4.3\n  API version:      1.54 (minimum version 1.40)\n  Go version:       go1.26.2\n  Git commit:       56be731\n  Built:            Wed May  6 17:07:37 2026\n  OS/Arch:          linux/amd64\n  Experimental:     false\n containerd:\n  Version:          v2.2.3\n  GitCommit:        77c84241c7cbdd9b4eca2591793e3d4f4317c590\n runc:\n  Version:          1.3.5\n  GitCommit:        v1.3.5-0-g488fc13e\n docker-init:\n  Version:          0.19.0\n  GitCommit:        de40ad0\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "compose",
+        "version"
+      ],
+      "returncode": 0,
+      "seconds": 0.3147911240002941,
+      "stdout": "Docker Compose version v5.1.4\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "ps",
+        "-aq",
+        "--filter",
+        "name=^/lab4-sms-demo$"
+      ],
+      "returncode": 0,
+      "seconds": 0.030663399000331992,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "build",
+        "--build-arg",
+        "MODEL_RELEASE=v1",
+        "-t",
+        "sms-spam:v1",
+        "."
+      ],
+      "returncode": 0,
+      "seconds": 0.7167379060001622,
+      "stdout": "",
+      "stderr": "#0 building with \"default\" instance using docker driver\n\n#1 [internal] load build definition from Dockerfile\n#1 transferring dockerfile: 804B done\n#1 DONE 0.0s\n\n#2 [internal] load metadata for docker.io/library/python:3.12.10-slim-bookworm@sha256:fd95fa221297a88e1cf49c55ec1828edd7c5a428187e67b5d1805692d11588db\n#2 DONE 0.0s\n\n#3 [internal] load .dockerignore\n#3 transferring context: 277B done\n#3 DONE 0.0s\n\n#4 [1/7] FROM docker.io/library/python:3.12.10-slim-bookworm@sha256:fd95fa221297a88e1cf49c55ec1828edd7c5a428187e67b5d1805692d11588db\n#4 resolve docker.io/library/python:3.12.10-slim-bookworm@sha256:fd95fa221297a88e1cf49c55ec1828edd7c5a428187e67b5d1805692d11588db 0.0s done\n#4 DONE 0.0s\n\n#5 [internal] load build context\n#5 transferring context: 313.67kB 0.0s done\n#5 DONE 0.0s\n\n#6 [2/7] WORKDIR /app\n#6 CACHED\n\n#7 [3/7] COPY requirements-runtime.txt .\n#7 CACHED\n\n#8 [4/7] RUN python -m pip install --no-cache-dir -r requirements-runtime.txt\n#8 CACHED\n\n#9 [5/7] COPY sms_mlops/__init__.py sms_mlops/service.py ./sms_mlops/\n#9 CACHED\n\n#10 [6/7] COPY models/v1/ ./model/\n#10 CACHED\n\n#11 [7/7] RUN useradd --uid 10001 --create-home appuser\n#11 CACHED\n\n#12 exporting to image\n#12 exporting layers done\n#12 exporting manifest sha256:9883ce6b456a7497066bb69b39958288fac130a4d6508ba9ec108efcf6225d6b done\n#12 exporting config sha256:8d70ce5f11be38b3bea710afacfa387a80c248f7280f2321a911b61f548c7a98 done\n#12 exporting attestation manifest sha256:9ee9c890a76592bb407ecef186e1694f732d03d776b3a9c294de5f99cdf0a982 0.0s done\n#12 exporting manifest list sha256:6d7ceff1a14600064d4fb0c803f8cb946acbb80688eaf8ae2a25104d954f7d4e 0.0s done\n#12 naming to docker.io/library/sms-spam:v1 done\n#12 unpacking to docker.io/library/sms-spam:v1 0.0s done\n#12 DONE 0.1s\n"
+    },
+    {
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sms-spam:v1"
+      ],
+      "returncode": 0,
+      "seconds": 0.06668402300010712,
+      "stdout": "[\n    {\n        \"Id\": \"sha256:6d7ceff1a14600064d4fb0c803f8cb946acbb80688eaf8ae2a25104d954f7d4e\",\n        \"RepoTags\": [\n            \"sms-spam:v1\"\n        ],\n        \"RepoDigests\": [\n            \"sms-spam@sha256:6d7ceff1a14600064d4fb0c803f8cb946acbb80688eaf8ae2a25104d954f7d4e\"\n        ],\n        \"Comment\": \"buildkit.dockerfile.v0\",\n        \"Created\": \"2026-11-10T12:00:06.559746464Z\",\n        \"Config\": {\n            \"User\": \"appuser\",\n            \"ExposedPorts\": {\n                \"8000/tcp\": {}\n            },\n            \"Env\": [\n                \"PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\n                \"LANG=C.UTF-8\",\n                \"GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305\",\n                \"PYTHON_VERSION=3.12.10\",\n                \"PYTHON_SHA256=07ab697474595e06f06647417d3c7fa97ded07afc1a7e4454c5639919b46eaea\",\n                \"PYTHONDONTWRITEBYTECODE=1\",\n                \"PYTHONUNBUFFERED=1\",\n                \"MODEL_DIR=/app/model\"\n            ],\n            \"Cmd\": [\n                \"python\",\n                \"-m\",\n                \"uvicorn\",\n                \"sms_mlops.service:app\",\n                \"--host\",\n                \"0.0.0.0\",\n                \"--port\",\n                \"8000\"\n            ],\n            \"WorkingDir\": \"/app\",\n            \"ArgsEscaped\": true,\n            \"Healthcheck\": {\n                \"Test\": [\n                    \"CMD\",\n                    \"python\",\n                    \"-c\",\n                    \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2)\"\n                ],\n                \"Interval\": 5000000000,\n                \"Timeout\": 3000000000,\n                \"StartPeriod\": 10000000000,\n                \"Retries\": 5\n            }\n        },\n        \"Architecture\": \"amd64\",\n        \"Os\": \"linux\",\n        \"Size\": 135082702,\n        \"RootFS\": {\n            \"Type\": \"layers\",\n            \"Layers\": [\n                \"sha256:ace34d1d784c01e3f9d156687089e8f58f786e23ccd097bdbbf337d6d28b3783\",\n                \"sha256:edf2e8d9a6f19eeb93e6adb712ccda0d8e687effd6a79400f258d957f40321a1\",\n                \"sha256:4a0992abe543a127be2561cc40cd50315516bfbf9d6169f06f3f8d30166fa6ab\",\n                \"sha256:de0b11a690a6e81271e41db48dea18fc39104f7ba2034e2ecf6971586f66021b\",\n                \"sha256:44b0f766c29bc621e38b7558b232da0e3e6215950fa0e55b2596400ee3bff597\",\n                \"sha256:e2b71cf929c9ec90f401c3c69009e1b8eb5933b96539fc94a7b82f4d03a44c2f\",\n                \"sha256:4e052cbd0818efdd717420c2c4da1597d9e9839d0e8e0a4902301d695ec5f90e\",\n                \"sha256:327c4f97a02bb342c135a774b2a94bfa2a0cabf192150d48bbf19dedb9d1e1bd\",\n                \"sha256:0d8b080c4179ebf66e80fdff4269b561bea6a639a89854187774f703371c5bdf\",\n                \"sha256:9b5f295229a3117fc39a5b340a4719680928745cf31f6966a9baad5bbeaaf040\"\n            ]\n        },\n        \"Metadata\": {\n            \"LastTagTime\": \"2026-11-10T12:13:19.318643412Z\"\n        },\n        \"Descriptor\": {\n            \"mediaType\": \"application/vnd.oci.image.index.v1+json\",\n            \"digest\": \"sha256:6d7ceff1a14600064d4fb0c803f8cb946acbb80688eaf8ae2a25104d954f7d4e\",\n            \"size\": 856\n        },\n        \"Identity\": {\n            \"Build\": [\n                {\n                    \"Ref\": \"m1drb8mcdjmjdopgaqdf6wwmb\",\n                    \"CreatedAt\": \"2026-11-10T12:13:19.335744871Z\"\n                }\n            ]\n        }\n    }\n]\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "build",
+        "--build-arg",
+        "MODEL_RELEASE=v2",
+        "-t",
+        "sms-spam:v2",
+        "."
+      ],
+      "returncode": 0,
+      "seconds": 0.8105394340000203,
+      "stdout": "",
+      "stderr": "#0 building with \"default\" instance using docker driver\n\n#1 [internal] load build definition from Dockerfile\n#1 transferring dockerfile: 804B done\n#1 DONE 0.0s\n\n#2 [internal] load metadata for docker.io/library/python:3.12.10-slim-bookworm@sha256:fd95fa221297a88e1cf49c55ec1828edd7c5a428187e67b5d1805692d11588db\n#2 DONE 0.0s\n\n#3 [internal] load .dockerignore\n#3 transferring context: 277B done\n#3 DONE 0.0s\n\n#4 [1/7] FROM docker.io/library/python:3.12.10-slim-bookworm@sha256:fd95fa221297a88e1cf49c55ec1828edd7c5a428187e67b5d1805692d11588db\n#4 resolve docker.io/library/python:3.12.10-slim-bookworm@sha256:fd95fa221297a88e1cf49c55ec1828edd7c5a428187e67b5d1805692d11588db 0.0s done\n#4 DONE 0.0s\n\n#5 [internal] load build context\n#5 transferring context: 452.12kB 0.0s done\n#5 DONE 0.0s\n\n#6 [4/7] RUN python -m pip install --no-cache-dir -r requirements-runtime.txt\n#6 CACHED\n\n#7 [5/7] COPY sms_mlops/__init__.py sms_mlops/service.py ./sms_mlops/\n#7 CACHED\n\n#8 [6/7] COPY models/v2/ ./model/\n#8 CACHED\n\n#9 [2/7] WORKDIR /app\n#9 CACHED\n\n#10 [3/7] COPY requirements-runtime.txt .\n#10 CACHED\n\n#11 [7/7] RUN useradd --uid 10001 --create-home appuser\n#11 CACHED\n\n#12 exporting to image\n#12 exporting layers done\n#12 exporting manifest sha256:1ce505aa2ce1690828e0ec5272ee4d4b25e25855911d417e776ae52828948bbb done\n#12 exporting config sha256:822882d4477cf776c32f8920cf8614da49e887e30c947b8f59b25a9562e2845c done\n#12 exporting attestation manifest sha256:c2148bc2fb3e0cc6a0f5696f9262be59f5a3c40de4eea5c6c0306a45fd9c98b3 0.0s done\n#12 exporting manifest list sha256:7b7ed92ef13698f3cf6e985cf5448257c70f54b71a61b25e1eeb897bb016d26d 0.0s done\n#12 naming to docker.io/library/sms-spam:v2 done\n#12 unpacking to docker.io/library/sms-spam:v2 0.0s done\n#12 DONE 0.1s\n"
+    },
+    {
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sms-spam:v2"
+      ],
+      "returncode": 0,
+      "seconds": 0.06864076300007582,
+      "stdout": "[\n    {\n        \"Id\": \"sha256:7b7ed92ef13698f3cf6e985cf5448257c70f54b71a61b25e1eeb897bb016d26d\",\n        \"RepoTags\": [\n            \"sms-spam:v2\"\n        ],\n        \"RepoDigests\": [\n            \"sms-spam@sha256:7b7ed92ef13698f3cf6e985cf5448257c70f54b71a61b25e1eeb897bb016d26d\"\n        ],\n        \"Comment\": \"buildkit.dockerfile.v0\",\n        \"Created\": \"2026-11-10T12:00:19.567029248Z\",\n        \"Config\": {\n            \"User\": \"appuser\",\n            \"ExposedPorts\": {\n                \"8000/tcp\": {}\n            },\n            \"Env\": [\n                \"PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\n                \"LANG=C.UTF-8\",\n                \"GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305\",\n                \"PYTHON_VERSION=3.12.10\",\n                \"PYTHON_SHA256=07ab697474595e06f06647417d3c7fa97ded07afc1a7e4454c5639919b46eaea\",\n                \"PYTHONDONTWRITEBYTECODE=1\",\n                \"PYTHONUNBUFFERED=1\",\n                \"MODEL_DIR=/app/model\"\n            ],\n            \"Cmd\": [\n                \"python\",\n                \"-m\",\n                \"uvicorn\",\n                \"sms_mlops.service:app\",\n                \"--host\",\n                \"0.0.0.0\",\n                \"--port\",\n                \"8000\"\n            ],\n            \"WorkingDir\": \"/app\",\n            \"ArgsEscaped\": true,\n            \"Healthcheck\": {\n                \"Test\": [\n                    \"CMD\",\n                    \"python\",\n                    \"-c\",\n                    \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2)\"\n                ],\n                \"Interval\": 5000000000,\n                \"Timeout\": 3000000000,\n                \"StartPeriod\": 10000000000,\n                \"Retries\": 5\n            }\n        },\n        \"Architecture\": \"amd64\",\n        \"Os\": \"linux\",\n        \"Size\": 135220890,\n        \"RootFS\": {\n            \"Type\": \"layers\",\n            \"Layers\": [\n                \"sha256:ace34d1d784c01e3f9d156687089e8f58f786e23ccd097bdbbf337d6d28b3783\",\n                \"sha256:edf2e8d9a6f19eeb93e6adb712ccda0d8e687effd6a79400f258d957f40321a1\",\n                \"sha256:4a0992abe543a127be2561cc40cd50315516bfbf9d6169f06f3f8d30166fa6ab\",\n                \"sha256:de0b11a690a6e81271e41db48dea18fc39104f7ba2034e2ecf6971586f66021b\",\n                \"sha256:44b0f766c29bc621e38b7558b232da0e3e6215950fa0e55b2596400ee3bff597\",\n                \"sha256:e2b71cf929c9ec90f401c3c69009e1b8eb5933b96539fc94a7b82f4d03a44c2f\",\n                \"sha256:4e052cbd0818efdd717420c2c4da1597d9e9839d0e8e0a4902301d695ec5f90e\",\n                \"sha256:327c4f97a02bb342c135a774b2a94bfa2a0cabf192150d48bbf19dedb9d1e1bd\",\n                \"sha256:320c4079a904bb73a17c80dbc2ae04579c6421499d00fa5588ac88614b1a9238\",\n                \"sha256:e42379d129272e1a3c5b32a51dd762910aa7ef838b1f412758553c5e25b0e9b8\"\n            ]\n        },\n        \"Metadata\": {\n            \"LastTagTime\": \"2026-11-10T12:13:20.114978126Z\"\n        },\n        \"Descriptor\": {\n            \"mediaType\": \"application/vnd.oci.image.index.v1+json\",\n            \"digest\": \"sha256:7b7ed92ef13698f3cf6e985cf5448257c70f54b71a61b25e1eeb897bb016d26d\",\n            \"size\": 856\n        },\n        \"Identity\": {\n            \"Build\": [\n                {\n                    \"Ref\": \"mljl47v0zkj85f3u80m16jcha\",\n                    \"CreatedAt\": \"2026-11-10T12:13:20.131452517Z\"\n                }\n            ]\n        }\n    }\n]\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "-d",
+        "--name",
+        "lab4-sms-demo",
+        "-p",
+        "127.0.0.1:18000:8000",
+        "sms-spam:v1"
+      ],
+      "returncode": 0,
+      "seconds": 0.378944195999793,
+      "stdout": "765c66f4258e4e612eae5fb33861649f37786a1b112846c3895e825bd76066f6\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "logs",
+        "lab4-sms-demo"
+      ],
+      "returncode": 0,
+      "seconds": 0.03779693800015593,
+      "stdout": "INFO:     172.17.0.1:49864 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"GET /metadata HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"GET /openapi.json HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49864 - \"POST /predict HTTP/1.1\" 200 OK\n",
+      "stderr": "INFO:     Started server process [1]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\nINFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)\n"
+    },
+    {
+      "argv": [
+        "docker",
+        "stop",
+        "lab4-sms-demo"
+      ],
+      "returncode": 0,
+      "seconds": 0.7595407849998992,
+      "stdout": "lab4-sms-demo\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "-d",
+        "--name",
+        "lab4-sms-demo",
+        "-p",
+        "127.0.0.1:18000:8000",
+        "sms-spam:v2"
+      ],
+      "returncode": 0,
+      "seconds": 0.39997201699998186,
+      "stdout": "23e5e727ca21a4eefd75a5e1bfd1b7e94f362a51e49611da10b3bd12985fe34b\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "logs",
+        "lab4-sms-demo"
+      ],
+      "returncode": 0,
+      "seconds": 0.03871682899989537,
+      "stdout": "INFO:     172.17.0.1:49900 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"GET /metadata HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"GET /openapi.json HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49900 - \"POST /predict HTTP/1.1\" 200 OK\n",
+      "stderr": "INFO:     Started server process [1]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\nINFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)\n"
+    },
+    {
+      "argv": [
+        "docker",
+        "stop",
+        "lab4-sms-demo"
+      ],
+      "returncode": 0,
+      "seconds": 0.6752958419997412,
+      "stdout": "lab4-sms-demo\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "-d",
+        "--name",
+        "lab4-sms-demo",
+        "-p",
+        "127.0.0.1:18000:8000",
+        "sms-spam:v1"
+      ],
+      "returncode": 0,
+      "seconds": 0.4073125770000843,
+      "stdout": "81ac44b7bc7a20024bc599d77cb2b213d1778ece7a6a4c8905584de6c09ddbd0\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "logs",
+        "lab4-sms-demo"
+      ],
+      "returncode": 0,
+      "seconds": 0.039611969999896246,
+      "stdout": "INFO:     172.17.0.1:49946 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"GET /metadata HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"GET /openapi.json HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 422 Unprocessable Entity\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:49946 - \"POST /predict HTTP/1.1\" 200 OK\n",
+      "stderr": "INFO:     Started server process [1]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\nINFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)\n"
+    },
+    {
+      "argv": [
+        "docker",
+        "stop",
+        "lab4-sms-demo"
+      ],
+      "returncode": 0,
+      "seconds": 0.6737897890002387,
+      "stdout": "lab4-sms-demo\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "compose",
+        "up",
+        "-d",
+        "--no-build",
+        "--wait",
+        "--wait-timeout",
+        "90"
+      ],
+      "returncode": 0,
+      "seconds": 7.12426857499986,
+      "stdout": "",
+      "stderr": " Container lab4-sms-spam-api-1 Recreate \n Container lab4-sms-spam-api-1 Recreated \n Container lab4-sms-spam-api-1 Starting \n Container lab4-sms-spam-api-1 Started \n Container lab4-sms-spam-api-1 Waiting \n Container lab4-sms-spam-api-1 Healthy \n"
+    },
+    {
+      "argv": [
+        "docker",
+        "compose",
+        "ps",
+        "--format",
+        "json"
+      ],
+      "returncode": 0,
+      "seconds": 0.35866731199985225,
+      "stdout": "{\"Command\":\"\\\"python -m uvicorn s…\\\"\",\"CreatedAt\":\"2026-11-10 19:13:30 +0700 +07\",\"ExitCode\":0,\"Health\":\"healthy\",\"ID\":\"9c091f59d5af\",\"Image\":\"sms-spam:v2\",\"Labels\":\"com.docker.compose.project.working_dir=/home/tair/NETI/AI/lab4,com.docker.compose.version=5.1.4,desktop.docker.io/ports/8000/tcp=127.0.0.1:8000,desktop.docker.io/wsl-distro=Ubuntu-24.04,com.docker.compose.config-hash=e162be60d781b85eb3463eaae9d3129a2d84c49c48f0b414773a519c1d94286e,com.docker.compose.container-number=1,com.docker.compose.oneoff=False,com.docker.compose.replace=api-1,com.docker.compose.service=api,desktop.docker.io/ports.scheme=v2,com.docker.compose.depends_on=,com.docker.compose.image=sha256:7b7ed92ef13698f3cf6e985cf5448257c70f54b71a61b25e1eeb897bb016d26d,com.docker.compose.project=lab4-sms-spam,com.docker.compose.project.config_files=/home/tair/NETI/AI/lab4/compose.yaml\",\"LocalVolumes\":\"0\",\"Mounts\":\"\",\"Name\":\"lab4-sms-spam-api-1\",\"Names\":\"lab4-sms-spam-api-1\",\"Networks\":\"lab4-sms-spam_default\",\"Ports\":\"127.0.0.1:8000-\\u003e8000/tcp\",\"Project\":\"lab4-sms-spam\",\"Publishers\":[{\"URL\":\"127.0.0.1\",\"TargetPort\":8000,\"PublishedPort\":8000,\"Protocol\":\"tcp\"}],\"RunningFor\":\"7 seconds ago\",\"Service\":\"api\",\"Size\":\"0B\",\"State\":\"running\",\"Status\":\"Up 6 seconds (healthy)\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "compose",
+        "ps",
+        "-q",
+        "api"
+      ],
+      "returncode": 0,
+      "seconds": 0.35624284899995473,
+      "stdout": "9c091f59d5afc6b0530e4022d1090993164e981bd79e3201f361053fbe4c944d\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{.State.Health.Status}}",
+        "9c091f59d5afc6b0530e4022d1090993164e981bd79e3201f361053fbe4c944d"
+      ],
+      "returncode": 0,
+      "seconds": 0.037147403999824746,
+      "stdout": "healthy\n",
+      "stderr": ""
+    }
+  ],
+  "sequence": [
+    {
+      "release": "v1",
+      "model_version": "1",
+      "pipeline_sha256": "05026fb8bbed4155e1b3ba8d1ab998765194d9f44fde168625a0adf7e0575c9a",
+      "status": "passed",
+      "parity_rows": 1037,
+      "max_probability_difference": 0.0,
+      "invalid_requests": [
+        {
+          "case": "missing_texts",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "empty_batch",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "empty_sms",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "blank_sms",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "number",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "boolean",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "null_sms",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "mixed_types",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "string_instead_of_batch",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "null_batch",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "wrong_top_level",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "extra_field",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "oversized_batch",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "oversized_sms",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "malformed_json",
+          "expected_status": 422,
+          "actual_status": 422
+        }
+      ],
+      "example_request": {
+        "texts": [
+          "And how you will do that, princess? :)",
+          "cmon babe, make me horny, *turn* me on! Txt me your fantasy now babe -) Im hot, sticky and need you now. All replies cost £1.50. 2 cancel send STOP",
+          "\"For the most sparkling shopping breaks from 45 per person; call 0121 2025050 or visit www.shortbreaks.org.uk\""
+        ]
+      },
+      "example_response": {
+        "predictions": [
+          "ham",
+          "ham",
+          "spam"
+        ],
+        "probabilities_spam": [
+          0.006182487177051617,
+          0.4767839621766742,
+          0.9178038431522817
+        ],
+        "model_version": "1",
+        "release": "v1",
+        "run_id": "cd9cab5f394d490a9600eea8e5c0dfd2",
+        "latency_ms": 1.440267999896605
+      },
+      "latency": {
+        "requests": 10,
+        "batch_size": 3,
+        "roundtrip_median_ms": 2.3157280002124025,
+        "roundtrip_p95_ms": 2.9641641003081527,
+        "handler_median_ms": 0.7181200003287813
+      },
+      "image_tag": "sms-spam:v1",
+      "image_id": "sha256:6d7ceff1a14600064d4fb0c803f8cb946acbb80688eaf8ae2a25104d954f7d4e",
+      "champion_alias": "1"
+    },
+    {
+      "release": "v2",
+      "model_version": "2",
+      "pipeline_sha256": "c4c5c73d8343999dde42addb99cb0650bbf78be256687014a6f0ea223f4a3d08",
+      "status": "passed",
+      "parity_rows": 1037,
+      "max_probability_difference": 0.0,
+      "invalid_requests": [
+        {
+          "case": "missing_texts",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "empty_batch",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "empty_sms",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "blank_sms",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "number",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "boolean",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "null_sms",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "mixed_types",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "string_instead_of_batch",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "null_batch",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "wrong_top_level",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "extra_field",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "oversized_batch",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "oversized_sms",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "malformed_json",
+          "expected_status": 422,
+          "actual_status": 422
+        }
+      ],
+      "example_request": {
+        "texts": [
+          "And how you will do that, princess? :)",
+          "cmon babe, make me horny, *turn* me on! Txt me your fantasy now babe -) Im hot, sticky and need you now. All replies cost £1.50. 2 cancel send STOP",
+          "\"For the most sparkling shopping breaks from 45 per person; call 0121 2025050 or visit www.shortbreaks.org.uk\""
+        ]
+      },
+      "example_response": {
+        "predictions": [
+          "ham",
+          "ham",
+          "ham"
+        ],
+        "probabilities_spam": [
+          0.0010209079134395204,
+          0.1632287445930936,
+          0.4945835957774673
+        ],
+        "model_version": "2",
+        "release": "v2",
+        "run_id": "4f7499ea175841c5a006088d92de6714",
+        "latency_ms": 1.9248590001552657
+      },
+      "latency": {
+        "requests": 10,
+        "batch_size": 3,
+        "roundtrip_median_ms": 2.474709500120298,
+        "roundtrip_p95_ms": 3.1625840500282716,
+        "handler_median_ms": 0.8707414999662433
+      },
+      "image_tag": "sms-spam:v2",
+      "image_id": "sha256:7b7ed92ef13698f3cf6e985cf5448257c70f54b71a61b25e1eeb897bb016d26d",
+      "champion_alias": "2"
+    },
+    {
+      "release": "v1",
+      "model_version": "1",
+      "pipeline_sha256": "05026fb8bbed4155e1b3ba8d1ab998765194d9f44fde168625a0adf7e0575c9a",
+      "status": "passed",
+      "parity_rows": 1037,
+      "max_probability_difference": 0.0,
+      "invalid_requests": [
+        {
+          "case": "missing_texts",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "empty_batch",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "empty_sms",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "blank_sms",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "number",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "boolean",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "null_sms",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "mixed_types",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "string_instead_of_batch",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "null_batch",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "wrong_top_level",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "extra_field",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "oversized_batch",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "oversized_sms",
+          "expected_status": 422,
+          "actual_status": 422
+        },
+        {
+          "case": "malformed_json",
+          "expected_status": 422,
+          "actual_status": 422
+        }
+      ],
+      "example_request": {
+        "texts": [
+          "And how you will do that, princess? :)",
+          "cmon babe, make me horny, *turn* me on! Txt me your fantasy now babe -) Im hot, sticky and need you now. All replies cost £1.50. 2 cancel send STOP",
+          "\"For the most sparkling shopping breaks from 45 per person; call 0121 2025050 or visit www.shortbreaks.org.uk\""
+        ]
+      },
+      "example_response": {
+        "predictions": [
+          "ham",
+          "ham",
+          "spam"
+        ],
+        "probabilities_spam": [
+          0.006182487177051617,
+          0.4767839621766742,
+          0.9178038431522817
+        ],
+        "model_version": "1",
+        "release": "v1",
+        "run_id": "cd9cab5f394d490a9600eea8e5c0dfd2",
+        "latency_ms": 1.3997339997331437
+      },
+      "latency": {
+        "requests": 10,
+        "batch_size": 3,
+        "roundtrip_median_ms": 2.7241000002504734,
+        "roundtrip_p95_ms": 2.9264279999551945,
+        "handler_median_ms": 0.8190274998014502
+      },
+      "image_tag": "sms-spam:v1",
+      "image_id": "sha256:6d7ceff1a14600064d4fb0c803f8cb946acbb80688eaf8ae2a25104d954f7d4e",
+      "champion_alias": "1"
+    }
+  ],
+  "docker_version": "Client:\n Version:           29.4.3\n API version:       1.54\n Go version:        go1.26.2\n Git commit:        055a478\n Built:             Wed May  6 17:06:42 2026\n OS/Arch:           linux/amd64\n Context:           default\n\nServer: Docker Desktop 4.74.0 (227015)\n Engine:\n  Version:          29.4.3\n  API version:      1.54 (minimum version 1.40)\n  Go version:       go1.26.2\n  Git commit:       56be731\n  Built:            Wed May  6 17:07:37 2026\n  OS/Arch:          linux/amd64\n  Experimental:     false\n containerd:\n  Version:          v2.2.3\n  GitCommit:        77c84241c7cbdd9b4eca2591793e3d4f4317c590\n runc:\n  Version:          1.3.5\n  GitCommit:        v1.3.5-0-g488fc13e\n docker-init:\n  Version:          0.19.0\n  GitCommit:        de40ad0",
+  "compose_version": "Docker Compose version v5.1.4",
+  "images": {
+    "v1": {
+      "tag": "sms-spam:v1",
+      "id": "sha256:6d7ceff1a14600064d4fb0c803f8cb946acbb80688eaf8ae2a25104d954f7d4e",
+      "repo_digests": [
+        "sms-spam@sha256:6d7ceff1a14600064d4fb0c803f8cb946acbb80688eaf8ae2a25104d954f7d4e"
+      ],
+      "size_bytes": 135082702
+    },
+    "v2": {
+      "tag": "sms-spam:v2",
+      "id": "sha256:7b7ed92ef13698f3cf6e985cf5448257c70f54b71a61b25e1eeb897bb016d26d",
+      "repo_digests": [
+        "sms-spam@sha256:7b7ed92ef13698f3cf6e985cf5448257c70f54b71a61b25e1eeb897bb016d26d"
+      ],
+      "size_bytes": 135220890
+    }
+  },
+  "compose_ps": "{\"Command\":\"\\\"python -m uvicorn s…\\\"\",\"CreatedAt\":\"2026-11-10 19:13:30 +0700 +07\",\"ExitCode\":0,\"Health\":\"healthy\",\"ID\":\"9c091f59d5af\",\"Image\":\"sms-spam:v2\",\"Labels\":\"com.docker.compose.project.working_dir=/home/tair/NETI/AI/lab4,com.docker.compose.version=5.1.4,desktop.docker.io/ports/8000/tcp=127.0.0.1:8000,desktop.docker.io/wsl-distro=Ubuntu-24.04,com.docker.compose.config-hash=e162be60d781b85eb3463eaae9d3129a2d84c49c48f0b414773a519c1d94286e,com.docker.compose.container-number=1,com.docker.compose.oneoff=False,com.docker.compose.replace=api-1,com.docker.compose.service=api,desktop.docker.io/ports.scheme=v2,com.docker.compose.depends_on=,com.docker.compose.image=sha256:7b7ed92ef13698f3cf6e985cf5448257c70f54b71a61b25e1eeb897bb016d26d,com.docker.compose.project=lab4-sms-spam,com.docker.compose.project.config_files=/home/tair/NETI/AI/lab4/compose.yaml\",\"LocalVolumes\":\"0\",\"Mounts\":\"\",\"Name\":\"lab4-sms-spam-api-1\",\"Names\":\"lab4-sms-spam-api-1\",\"Networks\":\"lab4-sms-spam_default\",\"Ports\":\"127.0.0.1:8000-\\u003e8000/tcp\",\"Project\":\"lab4-sms-spam\",\"Publishers\":[{\"URL\":\"127.0.0.1\",\"TargetPort\":8000,\"PublishedPort\":8000,\"Protocol\":\"tcp\"}],\"RunningFor\":\"7 seconds ago\",\"Service\":\"api\",\"Size\":\"0B\",\"State\":\"running\",\"Status\":\"Up 6 seconds (healthy)\"}",
+  "compose_health": "healthy",
+  "compose_checks": {
+    "release": "v2",
+    "model_version": "2",
+    "pipeline_sha256": "c4c5c73d8343999dde42addb99cb0650bbf78be256687014a6f0ea223f4a3d08",
+    "status": "passed",
+    "parity_rows": 1037,
+    "max_probability_difference": 0.0,
+    "invalid_requests": [
+      {
+        "case": "missing_texts",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "empty_batch",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "empty_sms",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "blank_sms",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "number",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "boolean",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "null_sms",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "mixed_types",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "string_instead_of_batch",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "null_batch",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "wrong_top_level",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "extra_field",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "oversized_batch",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "oversized_sms",
+        "expected_status": 422,
+        "actual_status": 422
+      },
+      {
+        "case": "malformed_json",
+        "expected_status": 422,
+        "actual_status": 422
+      }
+    ],
+    "example_request": {
+      "texts": [
+        "And how you will do that, princess? :)",
+        "cmon babe, make me horny, *turn* me on! Txt me your fantasy now babe -) Im hot, sticky and need you now. All replies cost £1.50. 2 cancel send STOP",
+        "\"For the most sparkling shopping breaks from 45 per person; call 0121 2025050 or visit www.shortbreaks.org.uk\""
+      ]
+    },
+    "example_response": {
+      "predictions": [
+        "ham",
+        "ham",
+        "ham"
+      ],
+      "probabilities_spam": [
+        0.0010209079134395204,
+        0.1632287445930936,
+        0.4945835957774673
+      ],
+      "model_version": "2",
+      "release": "v2",
+      "run_id": "4f7499ea175841c5a006088d92de6714",
+      "latency_ms": 2.0172039999124536
+    },
+    "latency": {
+      "requests": 10,
+      "batch_size": 3,
+      "roundtrip_median_ms": 2.4299439996866568,
+      "roundtrip_p95_ms": 2.985978450078619,
+      "handler_median_ms": 0.8504659999744035
+    }
+  },
+  "no_retraining": {
+    "runs_before": 6,
+    "runs_after": 6,
+    "hashes_before": {
+      "v1": "05026fb8bbed4155e1b3ba8d1ab998765194d9f44fde168625a0adf7e0575c9a",
+      "v2": "c4c5c73d8343999dde42addb99cb0650bbf78be256687014a6f0ea223f4a3d08"
+    },
+    "hashes_after": {
+      "v1": "05026fb8bbed4155e1b3ba8d1ab998765194d9f44fde168625a0adf7e0575c9a",
+      "v2": "c4c5c73d8343999dde42addb99cb0650bbf78be256687014a6f0ea223f4a3d08"
+    }
+  }
+}

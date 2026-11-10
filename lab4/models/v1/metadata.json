@@ -1,0 +1,22 @@
+{
+  "model_name": "sms-spam-filter",
+  "model_version": "1",
+  "release": "v1",
+  "run_id": "cd9cab5f394d490a9600eea8e5c0dfd2",
+  "model_uri": "models:/sms-spam-filter/1",
+  "pipeline_sha256": "05026fb8bbed4155e1b3ba8d1ab998765194d9f44fde168625a0adf7e0575c9a",
+  "raw_sha256": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d",
+  "split_sha256": "c7c7f9c6bd2b5ab276809d4b7b134446449498cda7385b9e78e99e8fea279c5b",
+  "classes": {
+    "0": "ham",
+    "1": "spam"
+  },
+  "input": {
+    "texts": "1..100 nonblank strings; each <=5000 characters"
+  },
+  "threshold": 0.5,
+  "python": "3.12.3",
+  "scikit_learn": "1.6.1",
+  "algorithm": "LogisticRegression",
+  "exported_at": "2026-11-10T11:57:48.867810+00:00"
+}

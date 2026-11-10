@@ -1,0 +1,36 @@
+{
+  "source": "https://archive.ics.uci.edu/dataset/228/sms+spam+collection",
+  "download_url": "https://archive.ics.uci.edu/static/public/228/sms+spam+collection.zip",
+  "license": "CC BY 4.0",
+  "raw_sha256": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d",
+  "raw_rows": 5574,
+  "clean_rows": 5159,
+  "excluded_rows": 415,
+  "conflicting_hashes": 0,
+  "raw_classes": {
+    "ham": 4827,
+    "spam": 747
+  },
+  "clean_classes": {
+    "ham": 4517,
+    "spam": 642
+  },
+  "split_sha256": "c7c7f9c6bd2b5ab276809d4b7b134446449498cda7385b9e78e99e8fea279c5b",
+  "splits": {
+    "train": {
+      "rows": 3095,
+      "ham": 2710,
+      "spam": 385
+    },
+    "validation": {
+      "rows": 1032,
+      "ham": 903,
+      "spam": 129
+    },
+    "test": {
+      "rows": 1032,
+      "ham": 904,
+      "spam": 128
+    }
+  }
+}

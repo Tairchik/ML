@@ -1,0 +1,35 @@
+{
+  "captured_at_utc": "2026-11-10T12:02:43.358411+00:00",
+  "method": "Original user screenshots and earlier Playwright captures of local MLflow/FastAPI",
+  "model_version": "2",
+  "files": {
+    "02_registry.png": {
+      "source": "user",
+      "original_filename": "Снимок экрана 2026-11-10 195222.png",
+      "sha256": "8094fb53d4d3a68d34000b94db02793d2d1d75b9fd8d9c48a856d9c3db2bce3e",
+      "description": "Две Registry-версии sms-spam-filter и alias champion",
+      "imported_at_utc": "2026-11-10T13:04:45.590634+00:00"
+    },
+    "06_mlflow_validation_metrics.png": {
+      "source": "user",
+      "original_filename": "Снимок экрана 2026-11-10 195709.png",
+      "sha256": "727d790ed1aa2203df46b40d33e410bfc4a6aab35c078f57899e652543800f6f",
+      "description": "Validation F1, precision, recall и размер словаря для шести запусков",
+      "imported_at_utc": "2026-11-10T13:04:45.600997+00:00"
+    },
+    "07_mlflow_metrics_overview.png": {
+      "source": "user",
+      "original_filename": "Снимок экрана 2026-11-10 195642.png",
+      "sha256": "0d2858f2bc707c80de4e60ba3580d1156ee2a5d39b66cdd73f007e37db4e4850",
+      "description": "Обзор MLflow: время обучения и итоговые test accuracy/F1",
+      "imported_at_utc": "2026-11-10T13:04:45.612055+00:00"
+    },
+    "08_mlflow_test_metrics.png": {
+      "source": "user",
+      "original_filename": "Снимок экрана 2026-11-10 195700.png",
+      "sha256": "976ba5eda28f172fa82169e50432e84fd0dd061c1415e288889f73cef8a47f66",
+      "description": "Test precision/recall чемпиона и validation accuracy шести запусков",
+      "imported_at_utc": "2026-11-10T13:04:45.622529+00:00"
+    }
+  }
+}

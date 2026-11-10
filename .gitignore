@@ -246,3 +246,14 @@ Desktop.ini
 # TensorBoard logs are part of the laboratory report
 !/lab2/logs/
 !/lab2/logs/**
+
+# Local service state and SQLite transaction files
+.runtime/
+*.pid
+*.db-shm
+*.db-wal
+*.db-journal
+
+# Temporary locks created when Word / LibreOffice documents are open
+~$*
+.~lock.*#

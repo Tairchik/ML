@@ -1,0 +1,13 @@
+**
+!Dockerfile
+!requirements-runtime.txt
+!sms_mlops/
+!sms_mlops/__init__.py
+!sms_mlops/service.py
+!models/
+!models/v1/
+!models/v1/pipeline.joblib
+!models/v1/metadata.json
+!models/v2/
+!models/v2/pipeline.joblib
+!models/v2/metadata.json
