@@ -1,0 +1,16 @@
+{
+  "seed": 42,
+  "epochs": 40,
+  "batch_size": 32,
+  "cv_folds": 5,
+  "configurations": 9,
+  "cv_fits": 45,
+  "train_size": 3048,
+  "test_size": 762,
+  "best_run": "dense16_lr0.001",
+  "best_architecture": "dense16",
+  "best_learning_rate": 0.001,
+  "selection": "mean_accuracy desc, std_accuracy asc, mean_loss asc, parameters asc, run asc",
+  "tensorboard_dir": "logs/tensorboard/20261031-071021-215588Z",
+  "tensorflow": "2.21.0"
+}

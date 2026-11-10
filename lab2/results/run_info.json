@@ -5,6 +5,6 @@
   "test_size": 762,
   "best_method": "SVM",
   "best_nn_run": "epochs10",
-  "tensorboard_dir": "logs/tensorboard/20261025-183428",
+  "tensorboard_dir": "logs/tensorboard/20261028-193040",
   "nn_experiments": 11
 }

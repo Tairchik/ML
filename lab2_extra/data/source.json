@@ -1,0 +1,19 @@
+{
+  "name": "Rice (Cammeo and Osmancik)",
+  "uci_id": 545,
+  "dataset_url": "https://archive.ics.uci.edu/dataset/545/rice+cammeo+and+osmancik",
+  "archive_url": "https://archive.ics.uci.edu/static/public/545/rice+cammeo+and+osmancik.zip",
+  "doi": "10.24432/C5MW4Z",
+  "license": "CC BY 4.0",
+  "download_date": "2026-10-25",
+  "files": {
+    "Citation_Request.txt": {
+      "bytes": 2077,
+      "sha256": "7184131b2ca0a456f619ede4cec7cf84607f8d9b32e6f5aab5be6e59f52dfc48"
+    },
+    "Rice_Cammeo_Osmancik.arff": {
+      "bytes": 427635,
+      "sha256": "1af97883100c89de2ea2972f7a28d428f4f1c14711a61defc0b0569e9eb65665"
+    }
+  }
+}
